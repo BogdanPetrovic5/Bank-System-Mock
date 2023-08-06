@@ -1,0 +1,131 @@
+
+<div class="container">
+    <header>
+        <div class="logo">
+            <img src="/assets/images/logo.png" alt="">
+        </div>
+    </header>
+    
+    <div class="containerContent">
+        <div class="banner">
+            <div class="bannerTitle">
+                <div>
+                    <h1>
+                        Nova Moja mBanka
+                        mobilna aplikacija
+                    </h1>
+                    <p>Još jednostavnija i prilagođenija vama.</p>
+                    <button>SAZNAJ VIŠE</button>
+                </div>
+                
+            </div>
+        </div>
+        <div class="loginRegisterForm">
+            <div class="loginRegisterFormWrap">
+                <div class="header">
+                    <div class="list">
+                        <li>SRB</li>
+                        <li>ENG</li>
+                    </div>
+                    <div class="menu" (click)="showDropDown()">
+                        <img src="/assets/images/menu.png" alt="">
+                    </div>
+                    <div class="dropDown" id="dropDown" *ngIf="dropDown == true">
+                        <div class="dropDownContent">
+                            <span>PODRŠKA</span>
+                            <span>Korisničko uputstvo</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="options">
+                    <div class="option"  (click)="changeToRegister()" >
+                        <span>VEĆ IMAM NALOG</span>
+                        <div class="borderActive" [hidden]="active == false"></div>
+                    </div>
+                    <div class="option" >
+                        <span (click)="changeToLogin()">KREIRAJ NOV NALOG</span>
+                        <div class="borderActive"   [hidden]="active == true"></div>
+                    </div>
+                    
+                </div>
+                <div class="formLogin" *ngIf="active == true">
+                    <div class="formTitle">
+                        <h1>Prijava korisnickim imenom i lozinkom</h1>
+                    </div>
+                    <div class="formContent">
+                        <img class="usernameImg" src="/assets/images/user.png" alt="">
+                        <input type="text" [(ngModel)] = "userNameLogin">
+                        <span class="username">Korisčko ime:</span>
+                        <img class="passwordImg" src="/assets/images/padlock.png" alt="">
+                        <input type="password" [(ngModel)] = "passwordLogin">
+                        <span class="password">Lozinka:</span>
+                    </div>
+                    <div class="button">
+                        <button>PRIJAVI SE</button>
+                    </div>
+                </div>
+                <div class="formRegister" *ngIf="active == false">
+                    <h1 class="formTitle" *ngIf="elementalForm == true">1: Osnovni podaci</h1>
+                    <h1 class="formTitle" *ngIf="personalData == true">2: Lični podaci</h1>
+                    <h1 class="formTitle" *ngIf="credentialsData == true">3: Lozinka i korisničko ime</h1>
+                    <div class="progressBar">
+                        <!-- <div class="elementalData" [hidden]="elementalForm == false">
+
+                        </div>
+                        <div class="credentials" [hidden]="elementalForm == true">
+
+                        </div> -->
+                        
+                        <div class="progressBarSlide" id="progressBarSlide">
+
+                        </div>
+                    </div>
+                    <div class="formContent">
+                        
+                        
+                        <div class="elementalDataForm" *ngIf="elementalForm == true" >
+                            <input type="text" [(ngModel)] = "cardNumber">
+                            <span class="cardNumber">Broj kartice</span>
+                            <input type="email"[(ngModel)] = "emailRegister">
+                            <span class="email">E-Mail</span>
+                        </div>
+                        <div class="personalDataForm" *ngIf="personalData == true">
+                            <span class="name">Ime</span>
+                            <input type="text">
+                            <span class="lastname">Prezime</span>
+                            <input type="text">
+                        </div>
+                        <div class="credentialsDataForm" *ngIf="credentialsData == true">
+                            <img class="usernameImg" src="/assets/images/user.png" alt="">
+                            <input type="text" [(ngModel)] = "userNameRegister">
+                            <span class="username">Korisčko ime:</span>
+                            <img class="passwordImg" src="/assets/images/padlock.png" alt="">
+                            <input type="password" [(ngModel)] = "passwordRegister">
+                            <span class="password">Lozinka:</span>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="button" *ngIf="personalData == true  && credentialsData == false ">
+                        <button (click)="nextToCredentials()">DALJE</button>
+                    </div>
+                    <div class="button" *ngIf="elementalForm == true && credentialsData == false">
+                        <button (click)="nextToPersonalData()">DALJE</button>
+                    </div>
+                    <div class="button" *ngIf="elementalForm == false && personalData == true">
+                        <button (click)="previouseToElementalForm()">NAZAD</button>
+                    </div>
+                    <div class="button" *ngIf="elementalForm == false && credentialsData == true">
+                        <button (click)="previouseToPersonalData()">NAZAD</button>
+                    </div>
+                    <div class="button" *ngIf="credentialsData == true">
+                        <button (click)="register()">REGISTRUJ SE</button>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+   
+
+</div>
