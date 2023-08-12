@@ -61,7 +61,7 @@
                         <span class="password">Lozinka:</span>
                     </div>
                     <div class="button">
-                        <button>PRIJAVI SE</button>
+                        <button (click)="login()">PRIJAVI SE</button>
                     </div>
                 </div>
                 <div class="formRegister" *ngIf="active == false">
@@ -89,12 +89,14 @@
                             <input type="email"[(ngModel)] = "emailRegister">
                             <span class="email">E-Mail</span>
                         </div>
+
                         <div class="personalDataForm" *ngIf="personalData == true">
-                            <span class="name">Ime</span>
-                            <input type="text">
-                            <span class="lastname">Prezime</span>
-                            <input type="text">
+                            <span class="name" >Ime</span>
+                            <input type="text" [(ngModel)] = "name">
+                            <span class="lastname" >Prezime</span>
+                            <input type="text" [(ngModel)] = "lastName">
                         </div>
+
                         <div class="credentialsDataForm" *ngIf="credentialsData == true">
                             <img class="usernameImg" src="/assets/images/user.png" alt="">
                             <input type="text" [(ngModel)] = "userNameRegister">
