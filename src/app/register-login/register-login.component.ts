@@ -3,6 +3,7 @@ import { LoginRegisterService } from '../BankServices/login-register.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginRegisterServiceService } from '../servicesBank/login-register-service.service';
+import { last } from 'rxjs';
 
 @Component({
   selector: 'app-register-login',
@@ -27,7 +28,7 @@ export class RegisterLoginComponent {
   public passwordRegister = ""
   public cardNumber = ""
   public emailRegister = ""
-
+  public pin = ""
  
   constructor(private auth: LoginRegisterServiceService, private route: Router){}
   public registeredUsers = 
@@ -74,24 +75,27 @@ export class RegisterLoginComponent {
     document.getElementById("progressBarSlide")!.style.transform = "translateX(100%)"
   }
   register(){
-    for(let i = 0; i < 10; i++){
-      let random = Math.floor(Math.random() * 10) + 1;
-      this.rsdAccNum += random
-    }
-    for(let i = 0; i < 10; i++){
-      let random = Math.floor(Math.random() * 10) + 1;
-      this.eurAccNum += random
-    }
+    if(this.userNameRegister != "" && this.passwordRegister != "" && this.name != "" && this.lastName != "" &&this.cardNumber != "" &&this.emailRegister != "" && this.pin != "" ){
+      for(let i = 0; i < 10; i++){
+        let random = Math.floor(Math.random() * 10) + 1;
+        this.rsdAccNum += random
+      }
+      for(let i = 0; i < 10; i++){
+        let random = Math.floor(Math.random() * 10) + 1;
+        this.eurAccNum += random
+      }
+      
+      this.auth.register(this.userNameRegister, btoa(this.passwordRegister), this.cardNumber, this.emailRegister,this.name,this.lastName,this.rsdAccNum,this.eurAccNum, this.pin ).subscribe((response) =>{
+        alert("Uspesno")
+        this.userNameRegister = ""
+        this.passwordRegister = ""
+        this.cardNumber = ""
+        this.emailRegister = ""
+      },(error:HttpErrorResponse)=>{
+        console.log(error);
+      })
+    }else alert("Sva polja moraju biti popunjena")
     
-    this.auth.register(this.userNameRegister, btoa(this.passwordRegister), this.cardNumber, this.emailRegister,this.name,this.lastName,this.rsdAccNum,this.eurAccNum ).subscribe((response) =>{
-      alert("Uspesno")
-      this.userNameRegister = ""
-      this.passwordRegister = ""
-      this.cardNumber = ""
-      this.emailRegister = ""
-    },(error:HttpErrorResponse)=>{
-      console.log(error);
-    })
   }
   login(){
     this.auth.login().subscribe((response)=>{

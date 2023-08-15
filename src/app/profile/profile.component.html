@@ -1,7 +1,9 @@
 <div class="container">
-    <header class="header">
+    <header class="header" [ngClass]="show ? 'activeHeader' : 'notActiveHeader'">
         <div class="logo">
-            <img src="/assets/images/logo.png" alt="">
+            
+            <img class="logoimg" src="/assets/images/logo.png" alt="">
+            <img class="logomenu" (click)="showMenu()" src="/assets/images/menu.png">
         </div>
         <div class="profile">
             <div class="profileImg">
@@ -54,105 +56,138 @@
                 
         </div>
     </header>
-    <div class="contentHome" *ngIf="homeTab == true">
-        <header class="containerHeader">
-            <div class="containerHeaderTitle">
-                <h1>Dobro došli</h1>
-            </div>
-            <div class="options">
-                <div class="logout">
-                    <img src="/assets/images/logout.png" alt="" (click)="logout()">
+    <div class="content" *ngIf="homeTab == true">
+        <div class="contentHome" *ngIf="homeTab == true">
+            <header class="containerHeader">
+                <div class="containerHeaderTitle">
+                    <img (click)="showMenu()" src="/assets/images/menu.png" alt="">
+                    <h1>Dobro došli</h1>
+                </div>
+                <div class="options">
+                    <div class="logout">
+                        <img src="/assets/images/logout.png" alt="" (click)="logout()">
+                    </div>
+                </div>
+            </header>
+            <div class="currentState" >
+                <div class="state">
+                    <img   src="/assets/images/trend (1).png" alt="">
+                    <h1>Pregled stanja</h1>
+                </div>
+                <div class="rsd">
+                    <div class="rsdTitle title">
+                        <img src="/assets/images/safe3.png" alt="">
+                        <h1>Dinarski račun</h1>
+                    </div>
+                    <div class="rsdAccountNum accNum"><h1>{{rsdAccNum}}</h1></div>
+                    <div class="rsdAccountState accState">
+                        <span>Raspolozivo stanje</span>
+                        <h1>{{rsdValue | currency:'RSD '}}</h1>
+                    </div>
+                </div>
+                <div class="eur">
+                    <div class="eurTitle title">
+                        <img src="/assets/images/safe3.png" alt="">
+                        <h1>Devizni račun</h1>
+                    </div>
+                    <div class="eurAccountNum accNum"><h1>{{eurAccNum}}</h1></div>
+                    <div class="eurAccountState accState">
+                        <span>Raspolozivo stanje</span>
+                        <h1>{{eurValue | currency:'EUR'}}</h1>
+                    </div>
                 </div>
             </div>
-        </header>
-        <div class="currentState" >
-            <div class="state">
-                <img src="/assets/images/trend (1).png" alt="">
-                <h1>Pregled stanja</h1>
-            </div>
-            <div class="rsd">
-                <div class="rsdTitle title">
-                    <img src="/assets/images/safe3.png" alt="">
-                    <h1>Dinarski račun</h1>
-                </div>
-                <div class="rsdAccountNum accNum"><h1>{{rsdAccNum}}</h1></div>
-                <div class="rsdAccountState accState">
-                    <span>Raspolozivo stanje</span>
-                    <h1>{{rsdValue | currency:'RSD '}}</h1>
-                </div>
-            </div>
-            <div class="eur">
-                <div class="eurTitle title">
-                    <img src="/assets/images/safe3.png" alt="">
-                    <h1>Devizni račun</h1>
-                </div>
-                <div class="eurAccountNum accNum"><h1>{{eurAccNum}}</h1></div>
-                <div class="eurAccountState accState">
-                    <span>Raspolozivo stanje</span>
-                    <h1>{{eurValue | currency:'EUR'}}</h1>
-                </div>
-            </div>
-        </div>
-        <div class="contentDashboardAndServices">
-            <div class="transactions">
-                <div class="transactionsTitle">
-                    <img src="/assets/images/transactionsList.png" alt="">
-                    <h1>Pregled transakcija</h1>
-                </div>
-                <div class="transactionsContent">
-                    <div class="everyTransaction" *ngFor="let transaction of transactions">
-                        <div class="each" *ngIf="transaction.show == true">
-                            <div class="initials">
-                                <h1>{{transaction.senderName[0]}} {{transaction.senderLastName[0]}}</h1>
-                            </div>
-                            <div class="fullName">
-                                <h1>
-                                    {{transaction.senderName}} {{transaction.senderLastName}} to {{transaction.receiverName}} {{transaction.receiverLastName}}
-                                </h1>
-                            </div>
-                            <div class="money">
-                                <h1>{{transaction.money| currency:'RSD '}}</h1>
+            <div class="contentDashboardAndServices">
+                <div class="transactions">
+                    <div class="transactionsTitle">
+                        <img src="/assets/images/transactionsList.png" alt="">
+                        <h1>Pregled transakcija</h1>
+                    </div>
+                    <div class="transactionsContent">
+                        <div class="everyTransaction" *ngFor="let transaction of transactions" [hidden] = "transaction.show != true">
+                            <div class="each" *ngIf="transaction.show == true">
+                                <div class="initials">
+                                    <h1>{{transaction.senderName[0]}} {{transaction.senderLastName[0]}}</h1>
+                                </div>
+                                <div class="fullName">
+                                    <h1>
+                                        {{transaction.senderName}} {{transaction.senderLastName}} to {{transaction.receiverName}} {{transaction.receiverLastName}}
+                                    </h1>
+                                </div>
+                                <div class="money">
+                                    <h1>{{transaction.money| currency:'RSD '}}</h1>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
-                
+                <div class="exchange">
+                    <div class="exchangeTitle">
+                        <img src="/assets/images/exchange.png" alt="">
+                        <h1>Menjačnica</h1>
+                    </div>
+                    <div class="exchangeOptions">
+                        <div class="calculator option" [ngClass]="calc ? 'border' : 'noBorder'" (click)="changeToCalc()">
+                            <h1>
+                                Kalkulator
+                            </h1>
+                        </div>
+                        <div class="exchangeRate option" [ngClass]="calc ? 'noBorder' : 'border'" (click)="changeToRate()">
+                            <h1>
+                                Kursna Lista
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="exchangeService">
+                        <div class="from">
+                            <div class="srb country"><img src="/assets/images/serbia (2).png" alt=""></div>
+                            <input type="text" [(ngModel)] = "rsd">
+                        </div>
+                        <div class="change">
+                            <img src="/assets/images/exchange.png" alt="">
+                        </div>
+                        <div class="to">
+                            <div class="eur country"><img src="/assets/images/circle.png" alt="" ></div>
+                            <input type="text" [(ngModel)] = "eur">
+                        </div>
+                    </div>
+                    <div class="button">
+                        <button (click)="makeExchange()"><h1>Izvrši zamenu</h1></button>
+                    </div>
+                </div>
+               
             </div>
-            <div class="exchange">
-                <div class="exchangeTitle">
-                    <img src="/assets/images/exchange.png" alt="">
-                    <h1>Menjačnica</h1>
-                </div>
-                <div class="exchangeOptions">
-                    <div class="calculator option" [ngClass]="calc ? 'border' : 'noBorder'" (click)="changeToCalc()">
+            <div class="addFounds">
+                <div class="addFoundsWrap">
+                    <div class="addFoundsHeader">
                         <h1>
-                            Kalkulator
+                            Dodaj novac
                         </h1>
                     </div>
-                    <div class="exchangeRate option" [ngClass]="calc ? 'noBorder' : 'border'" (click)="changeToRate()">
-                        <h1>
-                            Kursna Lista
-                        </h1>
+                    <div class="input">
+                        <span class="number">Broj kartice</span>
+                        <input type="text" placeholder="Broj kartice" [(ngModel)] = "cardNumber" disabled="true">
+                        <span class="pin">Pin</span>
+                        <input type="text"  [(ngModel)] = "pin">
+                        <span class="moneyVal">Svota novca</span>
+                        <input type="text"  [(ngModel)] = "founds">
                     </div>
-                </div>
-                <div class="exchangeService">
-                    <div class="from">
-                        
-                    </div>
-                    <div class="to">
-
-                    </div>
-                </div>
-                <div class="button">
-                    <button><h1>Izvrši zamenu</h1></button>
+                   <div class="button">
+                    <button (click)="addFounds()"><h1>Dodaj</h1></button>
+                   </div>
                 </div>
             </div>
         </div>
+            
     </div>
-    <div class="contentNewCheck">
+    
+    <div class="contentNewCheck" *ngIf="payinsTab == true">
         <header class="containerHeader">
             <div class="containerHeaderTitle">
+                <img class="logomenu" (click)="showMenu()" src="/assets/images/menu.png">
                 <h1>Novo plaćanje</h1>
+                
             </div>
             <div class="options">
                 <div class="logout">
@@ -164,12 +199,33 @@
             <div class="check">
                 <div class="headerCheck">
                     <div class="title">
-                        <span>Sa računaaa</span>
+                        <span>Sa računa</span>
                         <h1>Dinarski racun</h1>
                         <h2>{{rsdAccNum}}</h2>
                     </div>
+                    <div class="currentState">
+                        <div class="money">
+                            <span>Raspoloživo</span>
+                            <h1>{{rsdValue | currency:'RSD '}}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkContent">
+                    <div class="firstSection">
+                        <span class="name">Ime primaoca</span>
+                        <input type="text" name="" id="" [(ngModel)] = "receiverName">
+                        <span class="lastname">Prezime primaoca</span>
+                        <input type="text" name="" id="" [(ngModel)] = "receiverLastName">
+                        <span class="accNumSpan">Račun primaoca</span>
+                        <input type="text" name="" id="" [(ngModel)] = "receiverAccNum">
+                        <span class="value" >Svota</span>
+                        <input type="text" class="value" name="" id="" [(ngModel)] = "value">
+                        <button (click) = "pay()" ><h1>Plati</h1></button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
+    
 </div>

@@ -9,7 +9,7 @@ export class LoginRegisterServiceService {
 
   constructor(private http: HttpClient) { }
   public userID = ""
-  register(username:string, password:string, cardNumber:string, email:string,name:string, lastName:string,rsdAccNum:string,eurAccNum:string):Observable<any>
+  register(username:string, password:string, cardNumber:string, email:string,name:string, lastName:string,rsdAccNum:string,eurAccNum:string, pin:string):Observable<any>
   {
     return this.http.post<any>(environment.apiUrl + "/User", {
       username:username,
@@ -19,7 +19,8 @@ export class LoginRegisterServiceService {
       name:name,
       lastName:lastName,
       rsdAccountNumber:rsdAccNum,
-      eurAccountNumber:eurAccNum
+      eurAccountNumber:eurAccNum,
+      pin:Number(pin)
     });
   }
 
