@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './main-page/main-page.component';
 import { RegisterLoginComponent } from './register-login/register-login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ProfileGuard } from './profile.guard';
-import { LoginGuard } from './login.guard';
+import { LoginGuard } from './guards/login.guard';
+import { ProfileGuard } from './guards/profile.guard';
 const routes: Routes = [
   {path:"", redirectTo:"Main Page", pathMatch:"full"},
   {path:"Main Page", component:MainPageComponent,canActivate:[LoginGuard]},

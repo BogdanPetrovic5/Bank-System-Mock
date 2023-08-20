@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LoginRegisterService } from '../BankServices/login-register.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginRegisterServiceService } from '../servicesBank/login-register-service.service';
