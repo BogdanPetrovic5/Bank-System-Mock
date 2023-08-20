@@ -195,16 +195,19 @@ export class ProfileComponent implements OnInit{
       this.value = this.value.split(' ').join('')
       this.value = this.value.split(',').join('')
       this.value = this.value.split('.').join('')
-      this.profile.makeTransaction(this.receiverName,this.receiverLastName,this.receiverAccNum, this.value, this.name, this.lastname, this.username ).subscribe((response) =>{
-        setTimeout(()=>{
-          this.makeChangesToSender()
-          this.makeChangesToReceiver()
-          alert("Uspesno placeno!")
-        },2000)
-        
-      },(error:HttpErrorResponse) =>{
-        console.log(error)
-      })
+      if(this.receiverAccNum != this.rsdAccNum){
+        this.profile.makeTransaction(this.receiverName,this.receiverLastName,this.receiverAccNum, this.value, this.name, this.lastname, this.username ).subscribe((response) =>{
+          setTimeout(()=>{
+            this.makeChangesToSender()
+            this.makeChangesToReceiver()
+            alert("Uspesno placeno!")
+          },2000)
+          
+        },(error:HttpErrorResponse) =>{
+          console.log(error)
+        })
+      }else alert("Ne mozes ovako uplatiti novac na svoj racun!")
+      
     }else alert("Unesi sva polja")
     
   }
