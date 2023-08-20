@@ -101,7 +101,7 @@ export class RegisterLoginComponent {
         let random = Math.floor(Math.random() * 10) + 1;
         this.eurAccNum += random
       }
-      this.auth.login().subscribe((response) =>{
+      this.auth.getRegisteredUsers().subscribe((response) =>{
         this.registeredUsers = response;
         if((this.registeredUsers.find(x => x.username === this.userNameRegister)) == undefined){
           this.auth.register(this.userNameRegister, btoa(this.passwordRegister), this.cardNumber, this.emailRegister,this.name,this.lastName,this.rsdAccNum,this.eurAccNum, this.pin ).subscribe((response) =>{
@@ -121,7 +121,7 @@ export class RegisterLoginComponent {
   }
   login(){
     let check = true
-    this.auth.login().subscribe((response)=>{
+    this.auth.getRegisteredUsers().subscribe((response)=>{
       this.registeredUsers = response;
       for(let i = 0; i < this.registeredUsers.length;i++){
         if(btoa(this.passwordLogin) == this.registeredUsers[i].password && this.userNameLogin == this.registeredUsers[i].username){

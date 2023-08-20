@@ -24,7 +24,7 @@ export class LoginRegisterServiceService {
     });
   }
 
-  login():Observable<any>{
+  getRegisteredUsers():Observable<any>{
     return this.http.get<any>(environment.apiUrl + "/User")
   }
 }

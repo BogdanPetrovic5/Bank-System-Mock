@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit{
     },(error:HttpErrorResponse) =>{
       console.log(error)
     })
-    this.profile.getUserAccountNumberAndMoney(userID!.toString()).subscribe((response) =>{
+    this.profile.getPersonalData(userID!.toString()).subscribe((response) =>{
       localStorage.setItem("rsdAccNum", response.rsdAccountNumber);
       localStorage.setItem("eurAccNum", response.eurAccountNumber);
       this.rsdAccNum = response.rsdAccountNumber
@@ -98,7 +98,7 @@ export class ProfileComponent implements OnInit{
     this.founds = this.founds.split(' ').join('')
     this.founds = this.founds.split(',').join('')
     this.founds = this.founds.split('.').join('')
-    this.profile.getPin(userID!.toString()).subscribe((response) => {
+    this.profile.getPersonalData(userID!.toString()).subscribe((response) => {
       pin = response.pin
       cardNumber = response.cardNumber
       console.log(response.pin, response.cardNumber)

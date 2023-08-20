@@ -8,12 +8,6 @@ import { environment } from 'src/environments/environment';
 export class BankServicesService {
 
   constructor(private http: HttpClient) { }
-  getUserAccountNumberAndMoney(userID:String):Observable<any>{
-    return this.http.get<any>(environment.apiUrl + "/User/" + userID)
-  }
-  getUserAccountNumber(userID:String):Observable<any>{
-    return this.http.get<any>(environment.apiUrl + "/User/" + userID)
-  }
   getAllTransactions(userID:String):Observable<any>{
     return this.http.get<any>(environment.apiUrl + "/Transactions")
   }
@@ -24,7 +18,7 @@ export class BankServicesService {
       rsdMoney:currentMoney
     })
   }
-  getPin(userID:string):Observable<any>{
+  getPersonalData(userID:string):Observable<any>{
     return this.http.get<any>(environment.apiUrl + "/User/" + userID)
   }
   makeChangesToSender(userID:string, value:string, currentMoney:number):Observable<any>{
