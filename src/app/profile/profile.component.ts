@@ -95,6 +95,9 @@ export class ProfileComponent implements OnInit{
     let userID = localStorage.getItem("userID")
     let pin
     let cardNumber
+    this.founds = this.founds.split(' ').join('')
+    this.founds = this.founds.split(',').join('')
+    this.founds = this.founds.split('.').join('')
     this.profile.getPin(userID!.toString()).subscribe((response) => {
       pin = response.pin
       cardNumber = response.cardNumber
@@ -117,6 +120,13 @@ export class ProfileComponent implements OnInit{
     this.show = !this.show
   }
   makeExchange(){
+    this.eur = this.eur.split(' ').join('')
+    this.eur = this.eur.split(',').join('')
+    this.eur = this.eur.split('.').join('')
+
+    this.rsd = this.eur.split(' ').join('')
+    this.rsd = this.eur.split(',').join('')
+    this.rsd = this.eur.split('.').join('')
     if(this.eur == "" && this.rsd != ""){
       let currentMoney = Number(this.rsd) / 117.00
       this.eurValue += currentMoney
@@ -150,6 +160,9 @@ export class ProfileComponent implements OnInit{
 
 
   makeChangesToReceiver(){
+    this.value = this.value.split(' ').join('')
+    this.value = this.value.split(',').join('')
+    this.value = this.value.split('.').join('')
     for(let i = 0; i <this.registeredUsers.length;i++){
       if(this.receiverAccNum == this.registeredUsers[i].rsdAccountNumber){
         let ID = i + 1;
@@ -163,7 +176,9 @@ export class ProfileComponent implements OnInit{
   }
   makeChangesToSender(){
     let userID = localStorage.getItem("userID");
-    
+    this.value = this.value.split(' ').join('')
+    this.value = this.value.split(',').join('')
+    this.value = this.value.split('.').join('')
     this.profile.makeChangesToSender(userID!.toString(), this.value, this.rsdValue).subscribe((response) =>{
       this.rsdValue = response.rsdMoney
     },(error:HttpErrorResponse) =>{
@@ -174,12 +189,15 @@ export class ProfileComponent implements OnInit{
     this.name = localStorage.getItem("firstName");
     this.lastname = localStorage.getItem("lastName")
     this.username = localStorage.getItem("username")
+
+    
     if(this.receiverName != "" && this.receiverLastName != "" && this.receiverAccNum != "" && this.value != ""){
+      this.value = this.value.split(' ').join('')
+      this.value = this.value.split(',').join('')
+      this.value = this.value.split('.').join('')
       this.profile.makeTransaction(this.receiverName,this.receiverLastName,this.receiverAccNum, this.value, this.name, this.lastname, this.username ).subscribe((response) =>{
-        console.log("Uspesno")
         setTimeout(()=>{
           this.makeChangesToSender()
-          console.log(this.registeredUsers)
           this.makeChangesToReceiver()
           alert("Uspesno placeno!")
         },2000)

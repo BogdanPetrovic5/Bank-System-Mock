@@ -29,7 +29,9 @@ export class RegisterLoginComponent {
   public cardNumber = ""
   public emailRegister = ""
   public pin = ""
- 
+  public badCN = false
+  public badPin = false
+  public notEnoughCharacters = false
   constructor(private auth: LoginRegisterServiceService, private route: Router){}
   public registeredUsers = 
   [
@@ -74,8 +76,23 @@ export class RegisterLoginComponent {
     this.personalData = true
     document.getElementById("progressBarSlide")!.style.transform = "translateX(100%)"
   }
+  checkFocus(){
+    if(this.cardNumber.length != 16){
+      this.badCN = true
+    }else this.badCN = false
+  }
+  passwordCheck(){
+    if(this.passwordRegister.length < 6){
+      this.notEnoughCharacters = true
+    }else this.notEnoughCharacters = false
+  }
+  pinCheck(){
+    if(this.pin.length != 4){
+      this.badPin = true
+    }else this.badPin = false
+  }
   register(){
-    if(this.userNameRegister != "" && this.passwordRegister != "" && this.name != "" && this.lastName != "" &&this.cardNumber != "" &&this.emailRegister != "" && this.pin != "" ){
+    if(this.userNameRegister != "" && (this.passwordRegister != "" && this.passwordRegister.length >= 6) && this.name != "" && this.lastName != "" && (this.cardNumber != "" && this.cardNumber.length == 16) && this.emailRegister != "" && (this.pin != "" && this.pin.length == 4)){
       for(let i = 0; i < 10; i++){
         let random = Math.floor(Math.random() * 10) + 1;
         this.rsdAccNum += random
@@ -84,20 +101,26 @@ export class RegisterLoginComponent {
         let random = Math.floor(Math.random() * 10) + 1;
         this.eurAccNum += random
       }
-      
-      this.auth.register(this.userNameRegister, btoa(this.passwordRegister), this.cardNumber, this.emailRegister,this.name,this.lastName,this.rsdAccNum,this.eurAccNum, this.pin ).subscribe((response) =>{
-        alert("Uspesno")
-        this.userNameRegister = ""
-        this.passwordRegister = ""
-        this.cardNumber = ""
-        this.emailRegister = ""
-      },(error:HttpErrorResponse)=>{
-        console.log(error);
+      this.auth.login().subscribe((response) =>{
+        this.registeredUsers = response;
+        if((this.registeredUsers.find(x => x.username === this.userNameRegister)) == undefined){
+          this.auth.register(this.userNameRegister, btoa(this.passwordRegister), this.cardNumber, this.emailRegister,this.name,this.lastName,this.rsdAccNum,this.eurAccNum, this.pin ).subscribe((response) =>{
+            alert("Uspesno")
+            this.userNameRegister = ""
+            this.passwordRegister = ""
+            this.cardNumber = ""
+            this.emailRegister = ""
+          },(error:HttpErrorResponse)=>{
+            console.log(error);
+          })
+        }else alert("Korisnik sa ovim korisnickim imenom vec postoji.")
       })
-    }else alert("Sva polja moraju biti popunjena")
+      
+    }else alert("Sva polja moraju biti adekvatno popunjena!")
     
   }
   login(){
+    let check = true
     this.auth.login().subscribe((response)=>{
       this.registeredUsers = response;
       for(let i = 0; i < this.registeredUsers.length;i++){
@@ -111,11 +134,14 @@ export class RegisterLoginComponent {
           this.registeredUsers = []
           
           localStorage.setItem("userID", JSON.stringify(i+1))
-          
+          check = true
           break;
-        }
+        }else check = false
       }
-
+      if(check == false){
+        alert("Pogresna sifra ili koriscniko ime")
+        
+      }
     })
   }
 

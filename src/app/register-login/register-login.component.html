@@ -2,7 +2,7 @@
 <div class="container">
     <header>
         <div class="logo">
-            <img src="/assets/images/logo.png" alt="">
+            <img src="/assets/images/belistonks.png" alt="" routerLink="/Main Page">
         </div>
     </header>
     
@@ -84,9 +84,11 @@
                         
                         
                         <div class="elementalDataForm" *ngIf="elementalForm == true" >
-                            <input type="text" [(ngModel)] = "cardNumber">
+                            <span class="badCN" *ngIf="badCN">Broj kartice mora sadržati 16 cifara</span>
+                            <input type="text" [(ngModel)] = "cardNumber" (blur)="checkFocus()">
                             <span class="cardNumber">Broj kartice</span>
-                            <input type="text" [(ngModel)] = "pin">
+                            <input type="password" id="pin" [(ngModel)] = "pin" (blur)="pinCheck()">
+                            <span class="badPin" *ngIf="badPin">Pin mora imati 4 broja</span>
                             <span class="pin">Pin</span>
                             <input type="email"[(ngModel)] = "emailRegister">
                             <span class="email">E-Mail</span>
@@ -104,7 +106,8 @@
                             <input type="text" [(ngModel)] = "userNameRegister">
                             <span class="username">Korisčko ime:</span>
                             <img class="passwordImg" src="/assets/images/padlock.png" alt="">
-                            <input type="password" [(ngModel)] = "passwordRegister">
+                            <span class="notEnoughPass" *ngIf="notEnoughCharacters">Šifra ne sme imati manje od 6 karaktera!</span>
+                            <input type="password" [(ngModel)] = "passwordRegister" (blur)="passwordCheck()">
                             <span class="password">Lozinka:</span>
                         </div>
                         
