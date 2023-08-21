@@ -52,6 +52,7 @@ export class ProfileComponent implements OnInit{
   ]
   constructor(private route: Router, private profile:BankServicesService, private auth:LoginRegisterServiceService){}
   ngOnInit():void{
+    
     this.username = localStorage.getItem("username")
     this.firstName = localStorage.getItem("firstName");
     this.lastName = localStorage.getItem("lastName");
@@ -120,34 +121,36 @@ export class ProfileComponent implements OnInit{
     this.show = !this.show
   }
   makeExchange(){
-    this.eur = this.eur.split(' ').join('')
-    this.eur = this.eur.split(',').join('')
-    this.eur = this.eur.split('.').join('')
+    
 
-    this.rsd = this.eur.split(' ').join('')
-    this.rsd = this.eur.split(',').join('')
-    this.rsd = this.eur.split('.').join('')
-    if(this.eur == "" && this.rsd != ""){
+    console.log("DA")
+    if(this.eur.length == 0 && this.rsd.length != 0){
+      console.log("DA")
+      this.rsd = this.rsd.split(' ').join('')
+      this.rsd = this.rsd.split(',').join('')
+      this.rsd = this.rsd.split('.').join('')
       let currentMoney = Number(this.rsd) / 117.00
       this.eurValue += currentMoney
       this.rsdValue -= Number(this.rsd)
       let userID = localStorage.getItem("userID");
       this.profile.exchange(userID!.toString(), this.eurValue,this.rsdValue).subscribe((response)=>{
         console.log("Da")
-        this.rsd =""
-        this.eur = ""
+        this.rsd = ""
       },(error:HttpErrorResponse) =>{
         console.log(error)
       })
     }
-    if(this.eur != "" && this.rsd == ""){
+    if(this.eur.length != 0 && this.rsd.length == 0){
+      console.log("DA")
+      this.eur = this.eur.split(' ').join('')
+      this.eur = this.eur.split(',').join('')
+      this.eur = this.eur.split('.').join('')
       let currentMoney = Number(this.eur) * 117.00
       this.rsdValue += currentMoney
       this.eurValue -= Number(this.eur)
       let userID = localStorage.getItem("userID");
       this.profile.exchange(userID!.toString(), this.eurValue,this.rsdValue).subscribe((response)=>{
         console.log("Da")
-        this.rsd =""
         this.eur = ""
       },(error:HttpErrorResponse) =>{
         console.log(error)
@@ -195,19 +198,20 @@ export class ProfileComponent implements OnInit{
       this.value = this.value.split(' ').join('')
       this.value = this.value.split(',').join('')
       this.value = this.value.split('.').join('')
-      if(this.receiverAccNum != this.rsdAccNum){
-        this.profile.makeTransaction(this.receiverName,this.receiverLastName,this.receiverAccNum, this.value, this.name, this.lastname, this.username ).subscribe((response) =>{
-          setTimeout(()=>{
-            this.makeChangesToSender()
-            this.makeChangesToReceiver()
-            alert("Uspesno placeno!")
-          },2000)
-          
-        },(error:HttpErrorResponse) =>{
-          console.log(error)
-        })
-      }else alert("Ne mozes ovako uplatiti novac na svoj racun!")
-      
+      if(this.receiverAccNum.length == 10){
+        if(this.receiverAccNum != this.rsdAccNum){
+          this.profile.makeTransaction(this.receiverName,this.receiverLastName,this.receiverAccNum, this.value, this.name, this.lastname, this.username ).subscribe((response) =>{
+            setTimeout(()=>{
+              this.makeChangesToSender()
+              this.makeChangesToReceiver()
+              alert("Uspesno placeno!")
+            },2000)
+            
+          },(error:HttpErrorResponse) =>{
+            console.log(error)
+          })
+        }else alert("Ne mozes ovako uplatiti novac na svoj racun!")
+      }else alert("Ne mozes uplatiti na devizni racun")
     }else alert("Unesi sva polja")
     
   }

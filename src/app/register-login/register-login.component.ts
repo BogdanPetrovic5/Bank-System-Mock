@@ -93,11 +93,11 @@ export class RegisterLoginComponent {
   register(){
     if(this.userNameRegister != "" && (this.passwordRegister != "" && this.passwordRegister.length >= 6) && this.name != "" && this.lastName != "" && (this.cardNumber != "" && this.cardNumber.length == 16) && this.emailRegister != "" && (this.pin != "" && this.pin.length == 4)){
       for(let i = 0; i < 10; i++){
-        let random = Math.floor(Math.random() * 10) + 1;
+        let random = Math.floor(Math.random() * 10);
         this.rsdAccNum += random
       }
-      for(let i = 0; i < 10; i++){
-        let random = Math.floor(Math.random() * 10) + 1;
+      for(let i = 0; i < 9; i++){
+        let random = Math.floor(Math.random() * 10);
         this.eurAccNum += random
       }
       this.auth.getRegisteredUsers().subscribe((response) =>{
