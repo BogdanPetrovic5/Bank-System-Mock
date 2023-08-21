@@ -11,9 +11,8 @@ export class BankServicesService {
   getAllTransactions(userID:String):Observable<any>{
     return this.http.get<any>(environment.apiUrl + "/Transactions")
   }
-  makeChangesToReceiver(userID:string, value:string, currentMoney:number):Observable<any>{
+  makeChangesToReceiver(userID:string, currentMoney:number):Observable<any>{
     
-    currentMoney = currentMoney + parseFloat(value)
     return this.http.put<any>(environment.apiUrl + "/User/" + userID,{
       rsdMoney:currentMoney
     })

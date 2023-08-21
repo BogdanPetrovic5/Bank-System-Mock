@@ -104,9 +104,9 @@ export class ProfileComponent implements OnInit{
       cardNumber = response.cardNumber
       console.log(response.pin, response.cardNumber)
       if(pin == Number(this.pin) && cardNumber == this.cardNumber){
-        
-        this.profile.makeChangesToReceiver(userID!.toString(), this.founds, this.rsdValue).subscribe((response) =>{
-          this.rsdValue = this.rsdValue + Number(this.founds)
+        this.rsdValue = this.rsdValue + Number(this.founds)
+        this.profile.makeChangesToReceiver(userID!.toString(), this.rsdValue).subscribe((response) =>{
+          console.log("da")
         },(error:HttpErrorResponse) =>{
           console.log(error)
         })
@@ -166,13 +166,20 @@ export class ProfileComponent implements OnInit{
     this.value = this.value.split(' ').join('')
     this.value = this.value.split(',').join('')
     this.value = this.value.split('.').join('')
-    for(let i = 0; i <this.registeredUsers.length;i++){
+    for(let i = 0; i < this.registeredUsers.length;i++){
       if(this.receiverAccNum == this.registeredUsers[i].rsdAccountNumber){
         let ID = i + 1;
-        this.profile.makeChangesToReceiver(ID!.toString(), this.value,this.registeredUsers[i].rsdMoney).subscribe((response) =>{
-          console.log("Da")
-        },(error:HttpErrorResponse) =>{
-          console.log(error)
+        // this.profile.makeChangesToReceiver(ID!.toString(), this.value,this.registeredUsers[i].rsdMoney).subscribe((response) =>{
+        //   console.log("Da")
+        // },(error:HttpErrorResponse) =>{
+        //   console.log(error)
+        // })
+        this.profile.getPersonalData(ID!.toString()).subscribe((response) =>{
+          let currentMoney = response.rsdMoney
+          currentMoney = currentMoney + Number(this.value);
+          this.profile.makeChangesToReceiver(ID!.toString(), currentMoney).subscribe((response) => {
+            console.log("da")
+          })
         })
       }
     }
@@ -200,16 +207,20 @@ export class ProfileComponent implements OnInit{
       this.value = this.value.split('.').join('')
       if(this.receiverAccNum.length == 10){
         if(this.receiverAccNum != this.rsdAccNum){
-          this.profile.makeTransaction(this.receiverName,this.receiverLastName,this.receiverAccNum, this.value, this.name, this.lastname, this.username ).subscribe((response) =>{
-            setTimeout(()=>{
-              this.makeChangesToSender()
-              this.makeChangesToReceiver()
-              alert("Uspesno placeno!")
-            },2000)
-            
-          },(error:HttpErrorResponse) =>{
-            console.log(error)
-          })
+          if(this.rsdValue - Number(this.value) >= 0){
+            this.profile.makeTransaction(this.receiverName,this.receiverLastName,this.receiverAccNum, this.value, this.name, this.lastname, this.username ).subscribe((response) =>{
+              setTimeout(()=>{
+                this.makeChangesToSender()
+                this.makeChangesToReceiver()
+                alert("Uspesno placeno!")
+                
+              },2000)
+              
+            },(error:HttpErrorResponse) =>{
+              console.log(error)
+            })
+          }else alert("Nemate dovoljno sredstava na racunu!")
+          
         }else alert("Ne mozes ovako uplatiti novac na svoj racun!")
       }else alert("Ne mozes uplatiti na devizni racun")
     }else alert("Unesi sva polja")
