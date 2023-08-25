@@ -1,3 +1,6 @@
+Prototype:  https://64e352a5f16f060a8ed70cef--venerable-capybara-b17a5b.netlify.app/Main%20Page
+
+
 # Bank
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
