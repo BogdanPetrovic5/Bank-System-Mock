@@ -24,50 +24,62 @@
             <div class="loginRegisterFormWrap">
                 <div class="header">
                     <div class="list">
-                        <li>SRB</li>
-                        <li>ENG</li>
+                        <li (click)="changeToSrb()" [ngClass]="srb ? 'activeLang' : ''">SRB</li>
+                        <li (click)="changeToEng()" [ngClass]="eng ? 'activeLang' : ''">ENG</li>
                     </div>
                     <div class="menu" (click)="showDropDown()">
                         <img src="/assets/images/menu.png" alt="">
                     </div>
                     <div class="dropDown" id="dropDown" *ngIf="dropDown == true">
                         <div class="dropDownContent">
-                            <span>PODRŠKA</span>
-                            <span>Korisničko uputstvo</span>
+                            <span *ngIf="srb == true">PODRŠKA</span>
+                            <span *ngIf="eng == true">SUPPORT</span>
+                            <span *ngIf="srb == true">Korisničko uputstvo</span>
+                            <span *ngIf="eng == true">User Menu</span>
                         </div>
                     </div>
                 </div>
                 <div class="options">
                     <div class="option"  (click)="changeToRegister()" >
-                        <span>VEĆ IMAM NALOG</span>
+                        <span *ngIf="srb == true">VEĆ IMAM NALOG</span>
+                        <span *ngIf="eng == true">LOGIN</span>
                         <div class="borderActive" [hidden]="active == false"></div>
                     </div>
-                    <div class="option" >
-                        <span (click)="changeToLogin()">KREIRAJ NOV NALOG</span>
+                    <div class="option" (click)="changeToLogin()">
+                        <span *ngIf="srb == true">KREIRAJ NOV NALOG</span>
+                        <span *ngIf="eng == true">REGISTER</span>
                         <div class="borderActive"   [hidden]="active == true"></div>
                     </div>
                     
                 </div>
                 <div class="formLogin" *ngIf="active == true">
                     <div class="formTitle">
-                        <h1>Prijava korisnickim imenom i lozinkom</h1>
+                        <h1 *ngIf="srb == true">Prijava korisnickim imenom i lozinkom</h1>
+                        <h1 *ngIf="eng == true">Login with username and password</h1>
                     </div>
                     <div class="formContent">
                         <img class="usernameImg" src="/assets/images/user.png" alt="">
                         <input type="text" [(ngModel)] = "userNameLogin">
-                        <span class="username">Korisčko ime:</span>
+                        <span *ngIf="srb == true" class="username">Korisčko ime:</span>
+                        <span *ngIf="eng == true" class="username">Username:</span>
                         <img class="passwordImg" src="/assets/images/padlock.png" alt="">
                         <input type="password" [(ngModel)] = "passwordLogin">
-                        <span class="password">Lozinka:</span>
+                        <span *ngIf="srb == true" class="password">Lozinka:</span>
+                        <span *ngIf="eng == true" class="password">Password:</span>
                     </div>
                     <div class="button">
-                        <button (click)="login()">PRIJAVI SE</button>
+                        <button *ngIf="srb == true" (click)="login()">PRIJAVI SE</button>
+                        <button *ngIf="eng == true" (click)="login()">LOGIN</button>
                     </div>
                 </div>
                 <div class="formRegister" *ngIf="active == false">
-                    <h1 class="formTitle" *ngIf="elementalForm == true">1: Osnovni podaci</h1>
-                    <h1 class="formTitle" *ngIf="personalData == true">2: Lični podaci</h1>
-                    <h1 class="formTitle" *ngIf="credentialsData == true">3: Lozinka i korisničko ime</h1>
+                    <h1 class="formTitle" *ngIf="elementalForm == true && srb == true">1: Osnovni podaci</h1>
+                    <h1 class="formTitle" *ngIf="personalData == true && srb == true">2: Lični podaci</h1>
+                    <h1 class="formTitle" *ngIf="credentialsData == true && srb == true">3: Lozinka i korisničko ime</h1>
+
+                    <h1 class="formTitle" *ngIf="elementalForm == true && eng == true">1: Elemental data</h1>
+                    <h1 class="formTitle" *ngIf="personalData == true && eng == true">2: Personal data</h1>
+                    <h1 class="formTitle" *ngIf="credentialsData == true && eng == true">3: Password and username</h1>
                     <div class="progressBar">
                         <!-- <div class="elementalData" [hidden]="elementalForm == false">
 
@@ -84,31 +96,43 @@
                         
                         
                         <div class="elementalDataForm" *ngIf="elementalForm == true" >
-                            <span class="badCN" *ngIf="badCN">Broj kartice mora sadržati 16 cifara</span>
+                            <span class="badCN" *ngIf="badCN && srb == true">Broj kartice mora sadržati 16 cifara</span>
+                            <span class="badCN" *ngIf="badCN && eng == true">Card number must contain 16 numbers</span>
                             <input type="text" [(ngModel)] = "cardNumber" (blur)="checkFocus()">
-                            <span class="cardNumber">Broj kartice</span>
+                            <span *ngIf="srb == true" class="cardNumber">Broj kartice</span>
+                            <span *ngIf="eng == true" class="cardNumber">Card Number</span>
+
+
                             <input type="password" id="pin" [(ngModel)] = "pin" (blur)="pinCheck()">
-                            <span class="badPin" *ngIf="badPin">Pin mora imati 4 broja</span>
+                            <span class="badPin" *ngIf="badPin && srb">Pin mora imati 4 broja</span>
+                            <span class="badPin" *ngIf="badPin && eng">Pin must contain 4 numbers</span>
                             <span class="pin">Pin</span>
+
+                            
                             <input type="email"[(ngModel)] = "emailRegister">
                             <span class="email">E-Mail</span>
                         </div>
 
                         <div class="personalDataForm" *ngIf="personalData == true">
-                            <span class="name" >Ime</span>
+                            <span *ngIf="srb == true" class="name" >Ime</span>
+                            <span *ngIf="eng == true" class="name" >Name</span>
                             <input type="text" [(ngModel)] = "name">
-                            <span class="lastname" >Prezime</span>
+                            <span *ngIf="srb == true" class="lastname" >Prezime</span>
+                            <span *ngIf="eng == true" class="lastname" >Lastname</span>
                             <input type="text" [(ngModel)] = "lastName">
                         </div>
 
                         <div class="credentialsDataForm" *ngIf="credentialsData == true">
                             <img class="usernameImg" src="/assets/images/user.png" alt="">
                             <input type="text" [(ngModel)] = "userNameRegister">
-                            <span class="username">Korisčko ime:</span>
+                            <span *ngIf="srb == true" class="username">Korisčko ime:</span>
+                            <span *ngIf="eng == true" class="username">Username:</span>
                             <img class="passwordImg" src="/assets/images/padlock.png" alt="">
-                            <span class="notEnoughPass" *ngIf="notEnoughCharacters">Šifra ne sme imati manje od 6 karaktera!</span>
+                            <span class="notEnoughPass" *ngIf="notEnoughCharacters && srb">Šifra ne sme imati manje od 6 karaktera!</span>
+                            <span class="notEnoughPass" *ngIf="notEnoughCharacters && eng">Password cannot have less then 6 characters</span>
                             <input type="password" [(ngModel)] = "passwordRegister" (blur)="passwordCheck()">
-                            <span class="password">Lozinka:</span>
+                            <span *ngIf="srb == true" class="password">Lozinka:</span>
+                            <span *ngIf="eng == true" class="password">Password:</span>
                         </div>
                         
                         

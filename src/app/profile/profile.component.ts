@@ -20,6 +20,9 @@ export class ProfileComponent implements OnInit{
   public lastName:any
   public initials:any
   
+  public eng = true
+  public srb = false
+
   public rsd = ""
   public eur = ""
 
@@ -259,5 +262,13 @@ export class ProfileComponent implements OnInit{
       this.route.navigate(["\Login"])
     }, 1000);
     
+  }
+  changeToSrb(){
+    this.srb = true
+    this.eng = false
+  }
+  changeToEng(){
+    this.eng = true
+    this.srb = false
   }
 }

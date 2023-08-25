@@ -185,6 +185,20 @@
                     height: 30px;
                     cursor: pointer;
                 }
+                .language{
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+                    margin-right: 20px;
+                    width: 100px;
+                    span{
+                        font-size: 15px;
+                        font-family: sans-serif;
+                        font-weight: 800;
+                        color: black;
+                        cursor: pointer;
+                    }
+                }
             }
            
         }

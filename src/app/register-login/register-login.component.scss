@@ -110,9 +110,11 @@
                         flex-direction: row;
                     
                         align-items: center;
-                        li:first-child{
-                            background-color: #357BEF
-                           
+                        li{
+                            cursor: pointer;
+                        }
+                        .activeLang{
+                            background-color: #0095c9;
                         }
                     }
                     .menu{

@@ -31,6 +31,10 @@ export class RegisterLoginComponent {
   public badCN = false
   public badPin = false
   public notEnoughCharacters = false
+
+
+  public eng = true;
+  public srb = false
   constructor(private auth: LoginRegisterServiceService, private route: Router){}
   public registeredUsers = 
   [
@@ -143,5 +147,12 @@ export class RegisterLoginComponent {
       }
     })
   }
-
+  changeToEng(){
+    this.eng = true
+    this.srb = false
+  }
+  changeToSrb(){
+    this.srb = true
+    this.eng = false
+  }
 }

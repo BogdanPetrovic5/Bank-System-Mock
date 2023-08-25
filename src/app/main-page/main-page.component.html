@@ -1,6 +1,10 @@
 <div class="container">
     <div class="header">
         <img src="/assets/images/plavistonks.png" alt="">
+        <div class="language">
+            <span (click)="changeToSrb()">SRB</span>
+            <span (click)="changeToEng()">ENG</span>
+        </div>
     </div>
     <div class="mainSection">
         <div class="enteties">
@@ -9,15 +13,16 @@
                 <div class="cardContent">
                     <div class="cardContentTitle">
                         <h6><span>STONKS ONLINE</span></h6>
-                        <h1>Fizička lica</h1>
+                        <h1 *ngIf="srb == true">Fizička lica</h1>
+                        <h1 *ngIf="eng == true">Natural Person</h1>
                         <h5>Prijava za registrovane korisnike elektronskog bankarstva.</h5>
                     </div>
                          <p>
                             Ukoliko još niste korisnik, pozivamo Vas da posetite najbližu ekspozituru Stonks
                             banke i postanete korisnik besplatnih usluga elektronskih servisa.
                         </p>
-                        <button routerLink="/Login">PRIJAVA NA SISTEM</button>
-                        
+                        <button routerLink="/Login" *ngIf="srb == true">PRIJAVA NA SISTEM</button>
+                        <button routerLink="/Login" *ngIf="eng == true">LOGIN</button>
                 </div>
                 
             </div>
@@ -26,7 +31,8 @@
                 <div class="cardContent">
                     <div class="cardContentTitle">
                         <h6><span>STONKS ONLINE</span></h6>
-                        <h1>Pravna lica</h1>
+                        <h1 *ngIf="srb == true">Pravna lica</h1>
+                        <h1 *ngIf="eng == true">Legal Person</h1>
                         <h5>Prijava za registrovane korisnike elektronskog bankarstva za pravna lica.</h5>
                     </div>
                          <p>
@@ -34,7 +40,8 @@
                             banke ili kontaktirate Vašeg saradnika za poslove sa privredom.
                         </p>
                         
-                        <button>PRIJAVA NA SISTEM</button>
+                        <button routerLink="/Login" *ngIf="srb == true">PRIJAVA NA SISTEM</button>
+                        <button routerLink="/Login" *ngIf="eng == true">LOGIN</button>
                         
                         
                 </div>
@@ -71,7 +78,8 @@
                         </div>
                         
                     </div>
-                    <button><span>Saznajte više</span></button>
+                    <button *ngIf="srb == true"><span>Saznajte više</span></button>
+                    <button *ngIf="eng == true"><span>Larn more</span></button>
                 </div>
             </div>
         </div>
@@ -94,7 +102,8 @@
                             </p>
                         </div>
                     </div>
-                    <button><span>Prijavi se online</span></button>
+                    <button *ngIf="srb == true"><span>Prijavi se online</span></button>
+                    <button *ngIf="eng == true"><span>Login online</span></button>
                 </div>
             </div>
         </div>
@@ -117,7 +126,8 @@
                             </p>
                         </div>
                     </div>
-                    <button><span>Saznajte više</span></button>
+                    <button *ngIf="srb == true"><span>Saznajte više</span></button>
+                    <button *ngIf="eng == true"><span>Larn more</span></button>
                 </div>
             </div>
         </div>

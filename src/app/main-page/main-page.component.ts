@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-
+    public eng = true;
+    public srb = false
+    changeToSrb(){
+      this.srb = true
+      this.eng = false
+    }
+    changeToEng(){
+      this.eng = true
+      this.srb = false
+    }
 }
