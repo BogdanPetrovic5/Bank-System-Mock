@@ -191,11 +191,13 @@
                         </h1>
                     </div>
                     <div class="input">
-                        <span class="number">Broj kartice</span>
+                        <span *ngIf="srb" class="number">Broj kartice</span>
+                        <span *ngIf="eng" class="number">Card number</span>
                         <input type="text" placeholder="Broj kartice" [(ngModel)] = "cardNumber" disabled="true">
                         <span class="pin">Pin</span>
                         <input type="text"  [(ngModel)] = "pin">
-                        <span class="moneyVal">Svota novca</span>
+                        <span *ngIf="srb" class="moneyVal">Svota novca</span>
+                        <span  *ngIf="eng" class="moneyVal">Value</span>
                         <input type="text"  [(ngModel)] = "founds">
                     </div>
                    <div class="button">
