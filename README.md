@@ -36,7 +36,7 @@ IT IS A PROJECT.
 
 
 
-**HOW TO INSTALL**
+# **HOW TO INSTALL**
 # Bank
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
