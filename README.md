@@ -1,4 +1,4 @@
-Prototype:  https://64e8b31bf759c91cc5e9b072--stellular-boba-a4ba12.netlify.app/Main%20Page
+Prototype:  https://mock-data-banking-system.netlify.app/Main%20Page
 
 
 # Bank
