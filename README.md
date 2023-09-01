@@ -1,4 +1,4 @@
-Prototype:  https://mock-data-banking-system.netlify.app/Main%20Page
+Prototype: https://mockdata-banking-system.netlify.app
 
 # App functionality
 
