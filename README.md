@@ -1,6 +1,6 @@
 Prototype:  https://mock-data-banking-system.netlify.app/Main%20Page
 
-##**App functionality**
+# App functionality
 
 •	Make payments
 
@@ -11,7 +11,7 @@ Prototype:  https://mock-data-banking-system.netlify.app/Main%20Page
 •	Overview of every transaction
 
 
-##**App components**
+# App components
 
 •	Main page- Landing page with general info
 
@@ -19,7 +19,7 @@ Prototype:  https://mock-data-banking-system.netlify.app/Main%20Page
 
 •	Profile
 
-##**Main page**
+# Main page
 
 •	Contains general info, tabs with info, header, footer..
 
