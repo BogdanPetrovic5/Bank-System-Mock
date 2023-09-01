@@ -137,20 +137,36 @@
                         
                         
                     </div>
-                    <div class="button" *ngIf="personalData == true  && credentialsData == false ">
+                    <div class="button" *ngIf="personalData == true  && credentialsData == false && srb == true">
                         <button (click)="nextToCredentials()">DALJE</button>
                     </div>
-                    <div class="button" *ngIf="elementalForm == true && credentialsData == false">
+                    <div class="button" *ngIf="elementalForm == true && credentialsData == false && srb == true">
                         <button (click)="nextToPersonalData()">DALJE</button>
                     </div>
-                    <div class="button" *ngIf="elementalForm == false && personalData == true">
+                    <div class="button" *ngIf="elementalForm == false && personalData == true && srb == true">
                         <button (click)="previouseToElementalForm()">NAZAD</button>
                     </div>
-                    <div class="button" *ngIf="elementalForm == false && credentialsData == true">
+                    <div class="button" *ngIf="elementalForm == false && credentialsData == true && srb == true">
                         <button (click)="previouseToPersonalData()">NAZAD</button>
                     </div>
-                    <div class="button" *ngIf="credentialsData == true">
+                    <div class="button" *ngIf="credentialsData == true && srb == true">
                         <button (click)="register()">REGISTRUJ SE</button>
+                    </div>
+
+                    <div class="button" *ngIf="personalData == true  && credentialsData == false && eng == true">
+                        <button (click)="nextToCredentials()">NEXT</button>
+                    </div>
+                    <div class="button" *ngIf="elementalForm == true && credentialsData == false && eng == true">
+                        <button (click)="nextToPersonalData()">NEXT</button>
+                    </div>
+                    <div class="button" *ngIf="elementalForm == false && personalData == true && eng == true">
+                        <button (click)="previouseToElementalForm()">BACK</button>
+                    </div>
+                    <div class="button" *ngIf="elementalForm == false && credentialsData == true && eng == true">
+                        <button (click)="previouseToPersonalData()">BACK</button>
+                    </div>
+                    <div class="button" *ngIf="credentialsData == true && eng == true">
+                        <button (click)="register()">REGISTER</button>
                     </div>
                 </div>
             </div>
