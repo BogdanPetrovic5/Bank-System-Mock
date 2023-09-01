@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class MainPageComponent {
     public eng = true;
     public srb = false
+    // Language switch
     changeToSrb(){
       this.srb = true
       this.eng = false

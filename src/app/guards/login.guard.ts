@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginGuard implements CanActivate {
   constructor(private router: Router){}
+  //Prevents going from profile to login page
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

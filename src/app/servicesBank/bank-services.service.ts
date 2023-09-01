@@ -8,18 +8,23 @@ import { environment } from 'src/environments/environment';
 export class BankServicesService {
 
   constructor(private http: HttpClient) { }
+
+  //Api call for transactions
   getAllTransactions(userID:String):Observable<any>{
     return this.http.get<any>(environment.apiUrl + "/Transactions")
   }
+  //Api call to change data for receiver
   makeChangesToReceiver(userID:string, currentMoney:number):Observable<any>{
     
     return this.http.put<any>(environment.apiUrl + "/User/" + userID,{
       rsdMoney:currentMoney
     })
   }
+  //Api call for getting data of desired user
   getPersonalData(userID:string):Observable<any>{
     return this.http.get<any>(environment.apiUrl + "/User/" + userID)
   }
+  //Api call to make changes to sender
   makeChangesToSender(userID:string, value:string, currentMoney:number):Observable<any>{
     
     currentMoney = currentMoney - parseFloat(value)
@@ -27,7 +32,7 @@ export class BankServicesService {
       rsdMoney:currentMoney
     })
   }
-
+  //Api to make transaction which is first called when u click pay btton
   makeTransaction(receiverName:string, receiverLastName:string, receiverAccNum:string, value:string,senderName:string, senderLastName:string,senderUsername:string):Observable<any>{
     parseFloat(value)
     return this.http.post<any>(environment.apiUrl + "/Transactions",{
@@ -40,6 +45,7 @@ export class BankServicesService {
       senderUsername:senderUsername
     })
   }
+  //Api to change eur to din or otherwise
   exchange(userID:string, eurValue:number,rsdValue:number):Observable<any>{
      return this.http.put<any>(environment.apiUrl + "/User/" + userID,{
         eurMoney:eurValue,
@@ -47,7 +53,7 @@ export class BankServicesService {
 
      })
   }
-
+  //Getin list of users :/
   getRegisteredUsers():Observable<any>{
     return this.http.get<any>(environment.apiUrl + "/User")
   }

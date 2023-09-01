@@ -9,6 +9,7 @@ export class LoginRegisterServiceService {
 
   constructor(private http: HttpClient) { }
   public userID = ""
+  //Resgister
   register(username:string, password:string, cardNumber:string, email:string,name:string, lastName:string,rsdAccNum:string,eurAccNum:string, pin:string):Observable<any>
   {
     return this.http.post<any>(environment.apiUrl + "/User", {
@@ -23,7 +24,7 @@ export class LoginRegisterServiceService {
       pin:Number(pin)
     });
   }
-
+  //Getting registered users so we can check it on login page
   getRegisteredUsers():Observable<any>{
     return this.http.get<any>(environment.apiUrl + "/User")
   }

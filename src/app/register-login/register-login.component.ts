@@ -41,7 +41,7 @@ export class RegisterLoginComponent {
     {name:"", lastName:"", password:"",username:"",email:"",cardNumber:"", id:Object}
   ]
   changeToLogin(){
-    
+    //Changing to login form
     if(this.active == true) this.active = false;
     this.elementalForm = true
     this.personalData = false
@@ -50,12 +50,16 @@ export class RegisterLoginComponent {
     
   }
   changeToRegister(){
-    
+    // Changing to register form
     if(this.active == false) this.active = true;
   }
   showDropDown(){
+    //Drop down
     this.dropDown = !this.dropDown
   }
+
+
+ //Slider animation
   nextToCredentials(){
     this.elementalForm = false
     this.personalData = false
@@ -79,6 +83,9 @@ export class RegisterLoginComponent {
     this.personalData = true
     document.getElementById("progressBarSlide")!.style.transform = "translateX(100%)"
   }
+  //Slider animation
+
+//Checks for input focuses to show if format is good
   checkFocus(){
     if(this.cardNumber.length != 16){
       this.badCN = true
@@ -94,17 +101,25 @@ export class RegisterLoginComponent {
       this.badPin = true
     }else this.badPin = false
   }
+  //Checks for input focuses to show if format is good
+  
+  //Register
   register(){
+    //Checks if every field is filled.
     if(this.userNameRegister != "" && (this.passwordRegister != "" && this.passwordRegister.length >= 6) && this.name != "" && this.lastName != "" && (this.cardNumber != "" && this.cardNumber.length == 16) && this.emailRegister != "" && (this.pin != "" && this.pin.length == 4)){
+      //Creates random rsd acc number
       for(let i = 0; i < 10; i++){
         let random = Math.floor(Math.random() * 10);
         this.rsdAccNum += random
       }
+      //Creates random rsd acc number
       for(let i = 0; i < 9; i++){
         let random = Math.floor(Math.random() * 10);
         this.eurAccNum += random
       }
+      //Register
       this.auth.getRegisteredUsers().subscribe((response) =>{
+        //Becouse I do not have backend code to check for username uniqness I had to take it all to front
         this.registeredUsers = response;
         if((this.registeredUsers.find(x => x.username === this.userNameRegister)) == undefined){
           this.auth.register(this.userNameRegister, btoa(this.passwordRegister), this.cardNumber, this.emailRegister,this.name,this.lastName,this.rsdAccNum,this.eurAccNum, this.pin ).subscribe((response) =>{
@@ -123,6 +138,7 @@ export class RegisterLoginComponent {
     
   }
   login(){
+    //Login
     let check = true
     if(this.userNameLogin.length != 0 && this.passwordLogin.length != 0){
       this.auth.getRegisteredUsers().subscribe((response)=>{
@@ -150,6 +166,7 @@ export class RegisterLoginComponent {
     }else alert("Enter all fields")
     
   }
+  //Language switches
   changeToEng(){
     this.eng = true
     this.srb = false
