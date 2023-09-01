@@ -1,6 +1,42 @@
 Prototype:  https://mock-data-banking-system.netlify.app/Main%20Page
 
+# App functionality
 
+•	Make payments
+
+•	Currency Exchange
+
+•	Simulation of ATM 
+
+•	Overview of every transaction
+
+
+# App components
+
+•	Main page- Landing page with general info
+
+•	Login/Register page- Page for login and registration
+
+•	Profile
+
+# Main page
+
+•	Contains general info, tabs with info, header, footer..
+
+•	Login/Register- Form for data input. 
+
+Register requires: Card number 16 numbers, pin 4 numbers, email no format required but easily editable, name, lastname, username and password minimum 6 characters.
+
+•	Profile – Overview of current state(how much money do you have), overview of every transaction, currency exchange and simulation of ATM(just for adding money)
+
+THIS APPLICATION USES MOCK DATA, IT DOSEN’T REPRESENT THE REAL BANKING SYSTEM. 
+IT IS A PROJECT.
+
+
+
+
+
+# **HOW TO INSTALL**
 # Bank
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
