@@ -56,6 +56,8 @@ export class ProfileComponent implements OnInit{
   constructor(private route: Router, private profile:BankServicesService, private auth:LoginRegisterServiceService){}
   ngOnInit():void{
     
+    console.clear();
+    
     this.username = localStorage.getItem("username")
     this.firstName = localStorage.getItem("firstName");
     this.lastName = localStorage.getItem("lastName");
@@ -64,7 +66,7 @@ export class ProfileComponent implements OnInit{
     let userID = localStorage.getItem("userID");
     this.profile.getRegisteredUsers().subscribe((response)=>{
       this.registeredUsers = response;
-      console.log(this.registeredUsers)
+      
     },(error:HttpErrorResponse) =>{
       console.log(error)
     })
@@ -83,7 +85,7 @@ export class ProfileComponent implements OnInit{
             this.transactions[i].show = true
           }
         }
-        console.log(this.transactions)
+        
       })
     },(error:HttpErrorResponse)=>{
       console.log(error);
@@ -105,15 +107,16 @@ export class ProfileComponent implements OnInit{
     this.profile.getPersonalData(userID!.toString()).subscribe((response) => {
       pin = response.pin
       cardNumber = response.cardNumber
-      console.log(response.pin, response.cardNumber)
+      
       if(pin == Number(this.pin) && cardNumber == this.cardNumber){
         this.rsdValue = this.rsdValue + Number(this.founds)
         this.profile.makeChangesToReceiver(userID!.toString(), this.rsdValue).subscribe((response) =>{
-          console.log("da")
+          this.pin = ""
+          this.founds = ""
         },(error:HttpErrorResponse) =>{
           console.log(error)
         })
-      }else alert("Nije dobro")
+      }else alert("Enter right format")
     },(error:HttpErrorResponse) =>{
       console.log(error)
     })
@@ -128,23 +131,27 @@ export class ProfileComponent implements OnInit{
 
     console.log("DA")
     if(this.eur.length == 0 && this.rsd.length != 0){
-      console.log("DA")
+      
       this.rsd = this.rsd.split(' ').join('')
       this.rsd = this.rsd.split(',').join('')
       this.rsd = this.rsd.split('.').join('')
       let currentMoney = Number(this.rsd) / 117.00
       this.eurValue += currentMoney
-      this.rsdValue -= Number(this.rsd)
-      let userID = localStorage.getItem("userID");
-      this.profile.exchange(userID!.toString(), this.eurValue,this.rsdValue).subscribe((response)=>{
-        console.log("Da")
-        this.rsd = ""
-      },(error:HttpErrorResponse) =>{
-        console.log(error)
-      })
+      if(this.rsdValue - Number(this.rsd) >= 0){
+        this.rsdValue -= Number(this.rsd)
+        let userID = localStorage.getItem("userID");
+        
+        this.profile.exchange(userID!.toString(), this.eurValue,this.rsdValue).subscribe((response)=>{
+          
+          this.rsd = ""
+        },(error:HttpErrorResponse) =>{
+          console.log(error)
+        })
+      }else alert("Not enough money!")
+      
     }
     if(this.eur.length != 0 && this.rsd.length == 0){
-      console.log("DA")
+      
       this.eur = this.eur.split(' ').join('')
       this.eur = this.eur.split(',').join('')
       this.eur = this.eur.split('.').join('')
@@ -153,7 +160,7 @@ export class ProfileComponent implements OnInit{
       this.eurValue -= Number(this.eur)
       let userID = localStorage.getItem("userID");
       this.profile.exchange(userID!.toString(), this.eurValue,this.rsdValue).subscribe((response)=>{
-        console.log("Da")
+        
         this.eur = ""
       },(error:HttpErrorResponse) =>{
         console.log(error)
@@ -181,7 +188,7 @@ export class ProfileComponent implements OnInit{
           let currentMoney = response.rsdMoney
           currentMoney = currentMoney + Number(this.value);
           this.profile.makeChangesToReceiver(ID!.toString(), currentMoney).subscribe((response) => {
-            console.log("da")
+            
           })
         })
       }
@@ -222,11 +229,11 @@ export class ProfileComponent implements OnInit{
             },(error:HttpErrorResponse) =>{
               console.log(error)
             })
-          }else alert("Nemate dovoljno sredstava na racunu!")
+          }else alert("Not enough money!")
           
-        }else alert("Ne mozes ovako uplatiti novac na svoj racun!")
-      }else alert("Ne mozes uplatiti na devizni racun")
-    }else alert("Unesi sva polja")
+        }else alert("You can't pay yourself!")
+      }else alert("You can't pay to EUR account!")
+    }else alert("Please fill all fields")
     
   }
   changeToHome(){

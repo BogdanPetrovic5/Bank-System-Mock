@@ -124,28 +124,31 @@ export class RegisterLoginComponent {
   }
   login(){
     let check = true
-    this.auth.getRegisteredUsers().subscribe((response)=>{
-      this.registeredUsers = response;
-      for(let i = 0; i < this.registeredUsers.length;i++){
-        if(btoa(this.passwordLogin) == this.registeredUsers[i].password && this.userNameLogin == this.registeredUsers[i].username){
-          alert("Uspesno ulogovan")
-          console.log(this.registeredUsers)
-          localStorage.setItem("firstName", this.registeredUsers[i].name);
-          localStorage.setItem("lastName", this.registeredUsers[i].lastName)
-          localStorage.setItem("username", this.registeredUsers[i].username)
-          this.route.navigate(["/Profile"])
-          this.registeredUsers = []
+    if(this.userNameLogin.length != 0 && this.passwordLogin.length != 0){
+      this.auth.getRegisteredUsers().subscribe((response)=>{
+        this.registeredUsers = response;
+        for(let i = 0; i < this.registeredUsers.length;i++){
+          if(btoa(this.passwordLogin) == this.registeredUsers[i].password && this.userNameLogin == this.registeredUsers[i].username){
+            alert("Uspesno ulogovan")
+            
+            localStorage.setItem("firstName", this.registeredUsers[i].name);
+            localStorage.setItem("lastName", this.registeredUsers[i].lastName)
+            localStorage.setItem("username", this.registeredUsers[i].username)
+            this.route.navigate(["/Profile"])
+            this.registeredUsers = []
+            
+            localStorage.setItem("userID", JSON.stringify(i+1))
+            check = true
+            break;
+          }else check = false
+        }
+        if(check == false){
+          alert("Pogresna sifra ili koriscniko ime")
           
-          localStorage.setItem("userID", JSON.stringify(i+1))
-          check = true
-          break;
-        }else check = false
-      }
-      if(check == false){
-        alert("Pogresna sifra ili koriscniko ime")
-        
-      }
-    })
+        }
+      })
+    }else alert("Unesi sva polja")
+    
   }
   changeToEng(){
     this.eng = true
