@@ -116,10 +116,10 @@ export class RegisterLoginComponent {
           },(error:HttpErrorResponse)=>{
             console.log(error);
           })
-        }else alert("Korisnik sa ovim korisnickim imenom vec postoji.")
+        }else alert("User with this username doesn't exist!")
       })
       
-    }else alert("Sva polja moraju biti adekvatno popunjena!")
+    }else alert("Every field needs to be filled correctly!")
     
   }
   login(){
@@ -129,7 +129,7 @@ export class RegisterLoginComponent {
         this.registeredUsers = response;
         for(let i = 0; i < this.registeredUsers.length;i++){
           if(btoa(this.passwordLogin) == this.registeredUsers[i].password && this.userNameLogin == this.registeredUsers[i].username){
-            alert("Uspesno ulogovan")
+            alert("Loged in")
             
             localStorage.setItem("firstName", this.registeredUsers[i].name);
             localStorage.setItem("lastName", this.registeredUsers[i].lastName)
@@ -143,11 +143,11 @@ export class RegisterLoginComponent {
           }else check = false
         }
         if(check == false){
-          alert("Pogresna sifra ili koriscniko ime")
+          alert("Check password or username!")
           
         }
       })
-    }else alert("Unesi sva polja")
+    }else alert("Enter all fields")
     
   }
   changeToEng(){
