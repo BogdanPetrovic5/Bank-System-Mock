@@ -30,61 +30,61 @@
                     <div class="menu" (click)="showDropDown()">
                         <img src="/assets/images/menu.png" alt="">
                     </div>
-                    <div class="dropDown" id="dropDown" *ngIf="dropDown == true">
+                    <div class="dropDown" id="dropDown" *ngIf="dropDown ">
                         <div class="dropDownContent">
-                            <span *ngIf="srb == true">PODRŠKA</span>
-                            <span *ngIf="eng == true">SUPPORT</span>
-                            <span *ngIf="srb == true">Korisničko uputstvo</span>
-                            <span *ngIf="eng == true">User Menu</span>
+                            <span *ngIf="srb">PODRŠKA</span>
+                            <span *ngIf="eng">SUPPORT</span>
+                            <span *ngIf="srb">Korisničko uputstvo</span>
+                            <span *ngIf="eng">User Menu</span>
                         </div>
                     </div>
                 </div>
                 <div class="options">
                     <div class="option"  (click)="changeToRegister()" >
-                        <span *ngIf="srb == true">VEĆ IMAM NALOG</span>
-                        <span *ngIf="eng == true">LOGIN</span>
+                        <span *ngIf="srb">VEĆ IMAM NALOG</span>
+                        <span *ngIf="eng">LOGIN</span>
                         <div class="borderActive" [hidden]="active == false"></div>
                     </div>
                     <div class="option" (click)="changeToLogin()">
-                        <span *ngIf="srb == true">KREIRAJ NOV NALOG</span>
-                        <span *ngIf="eng == true">REGISTER</span>
-                        <div class="borderActive"   [hidden]="active == true"></div>
+                        <span *ngIf="srb">KREIRAJ NOV NALOG</span>
+                        <span *ngIf="eng">REGISTER</span>
+                        <div class="borderActive"   [hidden]="active "></div>
                     </div>
                     
                 </div>
-                <div class="formLogin" *ngIf="active == true">
+                <div class="formLogin" *ngIf="active ">
                     <div class="formTitle">
-                        <h1 *ngIf="srb == true">Prijava korisnickim imenom i lozinkom</h1>
-                        <h1 *ngIf="eng == true">Login with username and password</h1>
+                        <h1 *ngIf="srb ">Prijava korisnickim imenom i lozinkom</h1>
+                        <h1 *ngIf="eng ">Login with username and password</h1>
                     </div>
                     <div class="formContent">
                         <img class="usernameImg" src="/assets/images/user.png" alt="">
                         <input type="text" [(ngModel)] = "userNameLogin">
-                        <span *ngIf="srb == true" class="username">Korisčko ime:</span>
-                        <span *ngIf="eng == true" class="username">Username:</span>
+                        <span *ngIf="srb" class="username">Korisčko ime:</span>
+                        <span *ngIf="eng" class="username">Username:</span>
                         <img class="passwordImg" src="/assets/images/padlock.png" alt="">
                         <input type="password" [(ngModel)] = "passwordLogin">
-                        <span *ngIf="srb == true" class="password">Lozinka:</span>
-                        <span *ngIf="eng == true" class="password">Password:</span>
+                        <span *ngIf="srb" class="password">Lozinka:</span>
+                        <span *ngIf="eng" class="password">Password:</span>
                     </div>
                     <div class="button">
-                        <button *ngIf="srb == true" (click)="login()">PRIJAVI SE</button>
-                        <button *ngIf="eng == true" (click)="login()">LOGIN</button>
+                        <button *ngIf="srb" (click)="login()">PRIJAVI SE</button>
+                        <button *ngIf="eng" (click)="login()">LOGIN</button>
                     </div>
                 </div>
                 <div class="formRegister" *ngIf="active == false">
-                    <h1 class="formTitle" *ngIf="elementalForm == true && srb == true">1: Osnovni podaci</h1>
-                    <h1 class="formTitle" *ngIf="personalData == true && srb == true">2: Lični podaci</h1>
-                    <h1 class="formTitle" *ngIf="credentialsData == true && srb == true">3: Lozinka i korisničko ime</h1>
+                    <h1 class="formTitle" *ngIf="elementalForm  && srb ">1: Osnovni podaci</h1>
+                    <h1 class="formTitle" *ngIf="personalData  && srb ">2: Lični podaci</h1>
+                    <h1 class="formTitle" *ngIf="credentialsData  && srb ">3: Lozinka i korisničko ime</h1>
 
-                    <h1 class="formTitle" *ngIf="elementalForm == true && eng == true">1: Elemental data</h1>
-                    <h1 class="formTitle" *ngIf="personalData == true && eng == true">2: Personal data</h1>
-                    <h1 class="formTitle" *ngIf="credentialsData == true && eng == true">3: Password and username</h1>
+                    <h1 class="formTitle" *ngIf="elementalForm  && eng ">1: Elemental data</h1>
+                    <h1 class="formTitle" *ngIf="personalData  && eng ">2: Personal data</h1>
+                    <h1 class="formTitle" *ngIf="credentialsData  && eng ">3: Password and username</h1>
                     <div class="progressBar">
                         <!-- <div class="elementalData" [hidden]="elementalForm == false">
 
                         </div>
-                        <div class="credentials" [hidden]="elementalForm == true">
+                        <div class="credentials" [hidden]="elementalForm ">
 
                         </div> -->
                         
@@ -95,12 +95,12 @@
                     <div class="formContent">
                         
                         
-                        <div class="elementalDataForm" *ngIf="elementalForm == true" >
-                            <span class="badCN" *ngIf="badCN && srb == true">Broj kartice mora sadržati 16 cifara</span>
-                            <span class="badCN" *ngIf="badCN && eng == true">Card number must contain 16 numbers</span>
+                        <div class="elementalDataForm" *ngIf="elementalForm " >
+                            <span class="badCN" *ngIf="badCN && srb ">Broj kartice mora sadržati 16 cifara</span>
+                            <span class="badCN" *ngIf="badCN && eng ">Card number must contain 16 numbers</span>
                             <input type="text" [(ngModel)] = "cardNumber" (blur)="checkFocus()">
-                            <span *ngIf="srb == true" class="cardNumber">Broj kartice</span>
-                            <span *ngIf="eng == true" class="cardNumber">Card Number</span>
+                            <span *ngIf="srb" class="cardNumber">Broj kartice</span>
+                            <span *ngIf="eng" class="cardNumber">Card Number</span>
 
 
                             <input type="password" id="pin" [(ngModel)] = "pin" (blur)="pinCheck()">
@@ -113,59 +113,59 @@
                             <span class="email">E-Mail</span>
                         </div>
 
-                        <div class="personalDataForm" *ngIf="personalData == true">
-                            <span *ngIf="srb == true" class="name" >Ime</span>
-                            <span *ngIf="eng == true" class="name" >Name</span>
+                        <div class="personalDataForm" *ngIf="personalData ">
+                            <span *ngIf="srb" class="name" >Ime</span>
+                            <span *ngIf="eng" class="name" >Name</span>
                             <input type="text" [(ngModel)] = "name">
-                            <span *ngIf="srb == true" class="lastname" >Prezime</span>
-                            <span *ngIf="eng == true" class="lastname" >Lastname</span>
+                            <span *ngIf="srb" class="lastname" >Prezime</span>
+                            <span *ngIf="eng" class="lastname" >Lastname</span>
                             <input type="text" [(ngModel)] = "lastName">
                         </div>
 
-                        <div class="credentialsDataForm" *ngIf="credentialsData == true">
+                        <div class="credentialsDataForm" *ngIf="credentialsData ">
                             <img class="usernameImg" src="/assets/images/user.png" alt="">
                             <input type="text" [(ngModel)] = "userNameRegister">
-                            <span *ngIf="srb == true" class="username">Korisčko ime:</span>
-                            <span *ngIf="eng == true" class="username">Username:</span>
+                            <span *ngIf="srb" class="username">Korisčko ime:</span>
+                            <span *ngIf="eng" class="username">Username:</span>
                             <img class="passwordImg" src="/assets/images/padlock.png" alt="">
                             <span class="notEnoughPass" *ngIf="notEnoughCharacters && srb">Šifra ne sme imati manje od 6 karaktera!</span>
                             <span class="notEnoughPass" *ngIf="notEnoughCharacters && eng">Password cannot have less then 6 characters</span>
                             <input type="password" [(ngModel)] = "passwordRegister" (blur)="passwordCheck()">
-                            <span *ngIf="srb == true" class="password">Lozinka:</span>
-                            <span *ngIf="eng == true" class="password">Password:</span>
+                            <span *ngIf="srb" class="password">Lozinka:</span>
+                            <span *ngIf="eng" class="password">Password:</span>
                         </div>
                         
                         
                     </div>
-                    <div class="button" *ngIf="personalData == true  && credentialsData == false && srb == true">
+                    <div class="button" *ngIf="personalData  && credentialsData == false && srb">
                         <button (click)="nextToCredentials()">DALJE</button>
                     </div>
-                    <div class="button" *ngIf="elementalForm == true && credentialsData == false && srb == true">
+                    <div class="button" *ngIf="elementalForm && credentialsData == false && srb">
                         <button (click)="nextToPersonalData()">DALJE</button>
                     </div>
-                    <div class="button" *ngIf="elementalForm == false && personalData == true && srb == true">
+                    <div class="button" *ngIf="elementalForm == false && personalData && srb">
                         <button (click)="previouseToElementalForm()">NAZAD</button>
                     </div>
-                    <div class="button" *ngIf="elementalForm == false && credentialsData == true && srb == true">
+                    <div class="button" *ngIf="elementalForm == false && credentialsData && srb">
                         <button (click)="previouseToPersonalData()">NAZAD</button>
                     </div>
-                    <div class="button" *ngIf="credentialsData == true && srb == true">
+                    <div class="button" *ngIf="credentialsData && srb">
                         <button (click)="register()">REGISTRUJ SE</button>
                     </div>
 
-                    <div class="button" *ngIf="personalData == true  && credentialsData == false && eng == true">
+                    <div class="button" *ngIf="personalData  && credentialsData == false && eng">
                         <button (click)="nextToCredentials()">NEXT</button>
                     </div>
-                    <div class="button" *ngIf="elementalForm == true && credentialsData == false && eng == true">
+                    <div class="button" *ngIf="elementalForm && credentialsData == false && eng">
                         <button (click)="nextToPersonalData()">NEXT</button>
                     </div>
-                    <div class="button" *ngIf="elementalForm == false && personalData == true && eng == true">
+                    <div class="button" *ngIf="elementalForm == false && personalData&& eng">
                         <button (click)="previouseToElementalForm()">BACK</button>
                     </div>
-                    <div class="button" *ngIf="elementalForm == false && credentialsData == true && eng == true">
+                    <div class="button" *ngIf="elementalForm == false && credentialsData && eng">
                         <button (click)="previouseToPersonalData()">BACK</button>
                     </div>
-                    <div class="button" *ngIf="credentialsData == true && eng == true">
+                    <div class="button" *ngIf="credentialsData && eng">
                         <button (click)="register()">REGISTER</button>
                     </div>
                 </div>

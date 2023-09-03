@@ -120,7 +120,7 @@
                     </div>
                     <div class="transactionsContent">
                         <div class="everyTransaction" *ngFor="let transaction of transactions" [hidden] = "transaction.show != true">
-                            <div class="each" *ngIf="transaction.show == true">
+                            <div class="each" *ngIf="transaction.show">
                                 <div class="initials">
                                     <h1>{{transaction.senderName[0]}} {{transaction.senderLastName[0]}}</h1>
                                 </div>
