@@ -149,7 +149,7 @@
                     <div class="button" *ngIf="elementalForm == false && credentialsData && srb">
                         <button (click)="previouseToPersonalData()">NAZAD</button>
                     </div>
-                    <div class="button" *ngIf="credentialsData && srb">
+                    <div class="button" id="rgstrBttn" *ngIf="credentialsData && srb">
                         <button (click)="register()">REGISTRUJ SE</button>
                     </div>
 
@@ -165,7 +165,7 @@
                     <div class="button" *ngIf="elementalForm == false && credentialsData && eng">
                         <button (click)="previouseToPersonalData()">BACK</button>
                     </div>
-                    <div class="button" *ngIf="credentialsData && eng">
+                    <div class="button" id="rgstrBttn" *ngIf="credentialsData && eng">
                         <button (click)="register()">REGISTER</button>
                     </div>
                 </div>

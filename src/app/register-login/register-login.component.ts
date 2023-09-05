@@ -105,18 +105,12 @@ export class RegisterLoginComponent {
   
   //Register
   register(){
+    
+   
     //Checks if every field is filled.
     if(this.userNameRegister != "" && (this.passwordRegister != "" && this.passwordRegister.length >= 6) && this.name != "" && this.lastName != "" && (this.cardNumber != "" && this.cardNumber.length == 16) && this.emailRegister != "" && (this.pin != "" && this.pin.length == 4)){
-      //Creates random rsd acc number
-      for(let i = 0; i < 10; i++){
-        let random = Math.floor(Math.random() * 10);
-        this.rsdAccNum += random
-      }
-      //Creates random rsd acc number
-      for(let i = 0; i < 9; i++){
-        let random = Math.floor(Math.random() * 10);
-        this.eurAccNum += random
-      }
+      
+      
       //Register
       this.auth.getRegisteredUsers().subscribe((response) =>{
         //Becouse I do not have backend code to check for username uniqness I had to take it all to front
@@ -124,8 +118,18 @@ export class RegisterLoginComponent {
         if((this.registeredUsers.find(x => x.username === this.userNameRegister)) == undefined){
           if(this.registeredUsers.find(x => x.cardNumber === this.cardNumber) == undefined){
             if(this.registeredUsers.find(x => x.email === this.emailRegister) == undefined){
+              //Creates random rsd acc number
+              for(let i = 0; i < 10; i++){
+                let random = Math.floor(Math.random() * 10);
+                this.rsdAccNum += random
+              }
+              //Creates random rsd acc number
+              for(let i = 0; i < 9; i++){
+                let random = Math.floor(Math.random() * 10);
+                this.eurAccNum += random
+              }
               this.auth.register(this.userNameRegister, btoa(this.passwordRegister), this.cardNumber, this.emailRegister,this.name,this.lastName,this.rsdAccNum,this.eurAccNum, this.pin ).subscribe((response) =>{
-                alert("Succeeded")
+                alert("Succeded")
                 this.userNameRegister = ""
                 this.passwordRegister = ""
                 this.cardNumber = ""
