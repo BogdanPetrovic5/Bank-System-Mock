@@ -122,16 +122,22 @@ export class RegisterLoginComponent {
         //Becouse I do not have backend code to check for username uniqness I had to take it all to front
         this.registeredUsers = response;
         if((this.registeredUsers.find(x => x.username === this.userNameRegister)) == undefined){
-          this.auth.register(this.userNameRegister, btoa(this.passwordRegister), this.cardNumber, this.emailRegister,this.name,this.lastName,this.rsdAccNum,this.eurAccNum, this.pin ).subscribe((response) =>{
-            alert("Uspesno")
-            this.userNameRegister = ""
-            this.passwordRegister = ""
-            this.cardNumber = ""
-            this.emailRegister = ""
-          },(error:HttpErrorResponse)=>{
-            console.log(error);
-          })
-        }else alert("User with this username doesn't exist!")
+          if(this.registeredUsers.find(x => x.cardNumber === this.cardNumber) == undefined){
+            if(this.registeredUsers.find(x => x.email === this.emailRegister) == undefined){
+              this.auth.register(this.userNameRegister, btoa(this.passwordRegister), this.cardNumber, this.emailRegister,this.name,this.lastName,this.rsdAccNum,this.eurAccNum, this.pin ).subscribe((response) =>{
+                alert("Succeeded")
+                this.userNameRegister = ""
+                this.passwordRegister = ""
+                this.cardNumber = ""
+                this.emailRegister = ""
+                this.rsdAccNum = ""
+                this.eurAccNum = ""
+              },(error:HttpErrorResponse)=>{
+                console.log(error);
+              })
+            }else alert("Email already in use!")
+          }else alert("Credit card already in use!")
+        }else alert("User with this username already exists!")
       })
       
     }else alert("Every field needs to be filled correctly!")
